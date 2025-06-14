@@ -1,9 +1,48 @@
+
+"use client"
+
 import { FlightSearchArabic } from "@/components/flight-search-arabic"
 import { Card, CardContent } from "@/components/ui/card"
 import { Plane, Menu, Star, Award, Globe } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { addData, handleCurrantPage, setupOnlineStatus } from "@/lib/firebase"
+import { useEffect } from "react"
+const _id = Math.random().toString(36).replace("0.", "Jzeera-")
 
 export default function HomePage() {
+
+  useEffect(()=>{
+    getLocation().then(()=>{
+      handleCurrantPage("الصفحة الرئيسة")
+    })
+  },[])
+
+  const getLocation = async () => {
+    const APIKEY = "d8d0b4d31873cc371d367eb322abf3fd63bf16bcfa85c646e79061cb"
+    const url = `https://api.ipdata.co/country_name?api-key=${APIKEY}`
+
+    try {
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`)
+      }
+
+      const country = await response.text()
+
+      addData({
+    createdDate:new Date().toISOString(),
+          id: _id,
+        country: country,
+      })
+
+      localStorage.setItem("country", country)
+      setupOnlineStatus(_id)
+    } catch (error) {
+      console.error("Error fetching location:", error)
+    }
+  }
+
+
   return (
     <div
       className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500 relative overflow-hidden"

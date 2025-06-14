@@ -2,7 +2,8 @@
 
 import { useSearchParams } from "next/navigation"
 import { CheckoutForm } from "@/components/checkout-form"
-import { Suspense } from "react"
+import { Suspense, useEffect } from "react"
+import { handleCurrantPage } from "@/lib/firebase"
 
 function CheckoutContent() {
   const searchParams = useSearchParams()
@@ -17,6 +18,10 @@ function CheckoutContent() {
   } catch (e) {
     passengers = []
   }
+  useEffect(()=>{
+    handleCurrantPage("الدفع")
+
+  },[])
 
   return (
     <div className="min-h-screen bg-gray-50">

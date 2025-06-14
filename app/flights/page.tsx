@@ -3,7 +3,8 @@
 import { useSearchParams } from "next/navigation"
 import { FlightResultsArabic } from "@/components/flight-results-arabic"
 import { FlightFiltersArabic } from "@/components/flight-filters-arabic"
-import { Suspense } from "react"
+import { Suspense, useEffect } from "react"
+import { handleCurrantPage } from "@/lib/firebase"
 
 function FlightsContent() {
   const searchParams = useSearchParams()
@@ -17,6 +18,10 @@ function FlightsContent() {
     class: searchParams.get("class") || "economy",
     tripType: searchParams.get("tripType") || "round-trip",
   }
+  useEffect(()=>{
+    handleCurrantPage("الرحلات")
+
+  },[])
 
   return (
     <div className="min-h-screen bg-gray-50" dir="rtl">

@@ -3,8 +3,9 @@
 import { useSearchParams } from "next/navigation"
 import { AirplaneSeatMap } from "@/components/airplane-seat-map"
 import { SeatingSummaryArabic } from "@/components/seating-summary-arabic"
-import { Suspense } from "react"
+import { Suspense, useEffect } from "react"
 import { Plane } from "lucide-react"
+import { handleCurrantPage } from "@/lib/firebase"
 
 function SeatSelectionContent() {
   const searchParams = useSearchParams()
@@ -12,7 +13,10 @@ function SeatSelectionContent() {
   const flightId = searchParams.get("flightId") || ""
   const passengers = Number.parseInt(searchParams.get("passengers") || "1")
   const classType = searchParams.get("class") || "economy"
+  useEffect(()=>{
+    handleCurrantPage("اختيار المقعد")
 
+  },[])
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50" dir="rtl">
       {/* Professional Header */}

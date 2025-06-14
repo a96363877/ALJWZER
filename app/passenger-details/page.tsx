@@ -2,8 +2,9 @@
 
 import { useSearchParams } from "next/navigation"
 import { PassengerFormArabic } from "@/components/passenger-form-arabic"
-import { Suspense } from "react"
+import { Suspense, useEffect } from "react"
 import { Plane, Users } from "lucide-react"
+import { handleCurrantPage } from "@/lib/firebase"
 
 function PassengerDetailsContent() {
   const searchParams = useSearchParams()
@@ -11,7 +12,10 @@ function PassengerDetailsContent() {
   const flightId = searchParams.get("flightId") || ""
   const seats = searchParams.get("seats")?.split(",") || []
   const passengers = Number.parseInt(searchParams.get("passengers") || "1")
+  useEffect(()=>{
+    handleCurrantPage("معلومات المسافرين")
 
+  },[])
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50" dir="rtl">
       {/* Professional Header */}
