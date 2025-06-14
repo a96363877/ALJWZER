@@ -31,9 +31,9 @@ export function CheckoutForm({ flightId, seats, passengers }: CheckoutFormProps)
   const [agreeToTerms, setAgreeToTerms] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
 
-  const baseFare = 299
-  const taxes = 45
-  const seatFees = seats.length * 25 // Assuming some seats have fees
+  const baseFare = 45
+  const taxes = 8
+  const seatFees = seats.length * 5
   const total = baseFare * passengers.length + taxes + seatFees
 
   const handlePayment = async () => {
@@ -45,9 +45,22 @@ export function CheckoutForm({ flightId, seats, passengers }: CheckoutFormProps)
     await new Promise((resolve) => setTimeout(resolve, 3000))
 
     // Generate booking reference
-    const bookingRef = "SW" + Math.random().toString(36).substr(2, 6).toUpperCase()
+    const bookingRef = "JZ" + Math.random().toString(36).substr(2, 6).toUpperCase()
 
-    router.push(`/confirmation?booking=${bookingRef}`)
+    // Pass all booking data to confirmation page
+    const confirmationParams = new URLSearchParams({
+      booking: bookingRef,
+      flightId,
+      from: "KWI", // This should come from the actual search data
+      to: "DXB", // This should come from the actual search data
+      departDate: new Date().toISOString(),
+      seats: seats.join(","),
+      passengers: JSON.stringify(passengers),
+      class: "economy", // This should come from the actual booking data
+      totalPrice: total.toString(),
+    })
+
+    router.push(`/confirmation?${confirmationParams.toString()}`)
   }
 
   const updatePaymentData = (field: string, value: string) => {
@@ -139,7 +152,7 @@ export function CheckoutForm({ flightId, seats, passengers }: CheckoutFormProps)
                   id="city"
                   value={paymentData.city}
                   onChange={(e) => updatePaymentData("city", e.target.value)}
-                  placeholder="New York"
+                  placeholder="Kuwait City"
                 />
               </div>
               <div>
@@ -148,7 +161,7 @@ export function CheckoutForm({ flightId, seats, passengers }: CheckoutFormProps)
                   id="zipCode"
                   value={paymentData.zipCode}
                   onChange={(e) => updatePaymentData("zipCode", e.target.value)}
-                  placeholder="10001"
+                  placeholder="12345"
                 />
               </div>
             </div>
@@ -160,10 +173,10 @@ export function CheckoutForm({ flightId, seats, passengers }: CheckoutFormProps)
                   <SelectValue placeholder="Select country" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="us">United States</SelectItem>
-                  <SelectItem value="ca">Canada</SelectItem>
-                  <SelectItem value="uk">United Kingdom</SelectItem>
-                  <SelectItem value="au">Australia</SelectItem>
+                  <SelectItem value="kw">Kuwait</SelectItem>
+                  <SelectItem value="sa">Saudi Arabia</SelectItem>
+                  <SelectItem value="ae">UAE</SelectItem>
+                  <SelectItem value="qa">Qatar</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -183,7 +196,7 @@ export function CheckoutForm({ flightId, seats, passengers }: CheckoutFormProps)
           className="w-full bg-blue-600 hover:bg-blue-700 py-3 text-lg"
         >
           <Lock className="mr-2 h-5 w-5" />
-          {isProcessing ? "Processing Payment..." : `Pay $${total}`}
+          {isProcessing ? "Processing Payment..." : `Pay ${total} KD`}
         </Button>
       </div>
 
@@ -199,11 +212,11 @@ export function CheckoutForm({ flightId, seats, passengers }: CheckoutFormProps)
           <CardContent className="space-y-4">
             <div className="flex justify-between">
               <span className="text-gray-600">Flight</span>
-              <span className="font-medium">SW101</span>
+              <span className="font-medium">JZ101</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">Route</span>
-              <span className="font-medium">NYC → LAX</span>
+              <span className="font-medium">KWI → DXB</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">Date</span>
@@ -211,7 +224,7 @@ export function CheckoutForm({ flightId, seats, passengers }: CheckoutFormProps)
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">Time</span>
-              <span className="font-medium">08:00 - 11:30</span>
+              <span className="font-medium">08:00 - 09:20</span>
             </div>
           </CardContent>
         </Card>
@@ -243,21 +256,21 @@ export function CheckoutForm({ flightId, seats, passengers }: CheckoutFormProps)
             <div className="flex justify-between">
               <span className="text-gray-600">Base fare</span>
               <span>
-                ${baseFare} × {passengers.length}
+                {baseFare} KD × {passengers.length}
               </span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">Seat selection</span>
-              <span>${seatFees}</span>
+              <span>{seatFees} KD</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">Taxes & fees</span>
-              <span>${taxes}</span>
+              <span>{taxes} KD</span>
             </div>
             <hr className="my-2" />
             <div className="flex justify-between font-bold text-lg">
               <span>Total</span>
-              <span>${total}</span>
+              <span>{total} KD</span>
             </div>
           </CardContent>
         </Card>
