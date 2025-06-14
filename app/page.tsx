@@ -1,113 +1,339 @@
-import Image from 'next/image';
+import { FlightSearchArabic } from "@/components/flight-search-arabic"
+import { Card, CardContent } from "@/components/ui/card"
+import { Plane, Menu, Star, Award, Globe } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div
+      className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500 relative overflow-hidden"
+      dir="rtl"
+    >
+      {/* Enhanced Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-20 right-20 transform rotate-12">
+          <Plane className="h-32 sm:h-40 w-32 sm:w-40 text-white" />
+        </div>
+        <div className="absolute bottom-40 left-20 transform -rotate-12">
+          <Plane className="h-24 sm:h-32 w-24 sm:w-32 text-white" />
+        </div>
+        <div className="absolute top-1/2 left-1/3 transform rotate-45">
+          <Plane className="h-16 sm:h-20 w-16 sm:w-20 text-white" />
+        </div>
+        <div className="absolute top-1/4 left-1/4 transform -rotate-12">
+          <Plane className="h-12 sm:h-16 w-12 sm:w-16 text-white" />
         </div>
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      {/* Professional Header - Responsive */}
+      <header className="relative z-20 bg-white/15 backdrop-blur-md border-b border-white/20 shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16 sm:h-20">
+            {/* Mobile Menu */}
+            <Button variant="ghost" size="icon" className="md:hidden text-white hover:bg-white/10">
+              <Menu className="h-6 w-6" />
+            </Button>
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+            {/* Enhanced Navigation - Hidden on mobile */}
+            <nav className="hidden md:flex space-x-6 lg:space-x-8 space-x-reverse">
+              <a
+                href="#"
+                className="text-white hover:text-yellow-300 font-medium text-base lg:text-lg transition-colors duration-200 relative group"
+              >
+                الرحلات
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-300 group-hover:w-full transition-all duration-200"></span>
+              </a>
+              <a
+                href="#"
+                className="text-white hover:text-yellow-300 font-medium text-base lg:text-lg transition-colors duration-200 relative group"
+              >
+                الفنادق
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-300 group-hover:w-full transition-all duration-200"></span>
+              </a>
+              <a
+                href="#"
+                className="text-white hover:text-yellow-300 font-medium text-base lg:text-lg transition-colors duration-200 relative group"
+              >
+                تأجير السيارات
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-300 group-hover:w-full transition-all duration-200"></span>
+              </a>
+              <a
+                href="#"
+                className="text-white hover:text-yellow-300 font-medium text-base lg:text-lg transition-colors duration-200 relative group"
+              >
+                رحلاتي
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-yellow-300 group-hover:w-full transition-all duration-200"></span>
+              </a>
+            </nav>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+            {/* Enhanced Logo - Responsive */}
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-white">
+                <img src="vercel.svg" alt="logo"/>              
+              </div>
+            </div>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
+            {/* Enhanced Account & Language - Responsive */}
+            <div className="flex items-center gap-2 sm:gap-4">
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-blue-900 border-white bg-white hover:bg-yellow-50 font-medium text-xs sm:text-sm px-2 sm:px-3"
+              >
+                KW | AR
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-white border-white bg-transparent hover:bg-white/10 font-medium text-xs sm:text-sm px-2 sm:px-3"
+              >
+                تسجيل الدخول
+              </Button>
+            </div>
+          </div>
+        </div>
+      </header>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+      {/* Enhanced Hero Section - Responsive */}
+      <section className="relative py-12 sm:py-16 lg:py-24 px-4">
+        <div className="max-w-7xl mx-auto">
+          {/* Enhanced Promotional Banner - Responsive */}
+          <div className="text-center mb-8 sm:mb-12 lg:mb-16 relative">
+            <div className="inline-block bg-white/20 backdrop-blur-lg rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 border border-white/30 shadow-2xl">
+              <div className="mb-4 sm:mb-6">
+                <span className="text-yellow-300 text-lg sm:text-xl lg:text-2xl font-bold bg-blue-800/50 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full">
+                  خصم حصري
+                </span>
+              </div>
+              <div className="flex items-center justify-center gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8">
+                <div className="text-6xl sm:text-7xl lg:text-9xl font-black text-white drop-shadow-lg">45</div>
+                <div className="bg-gradient-to-r from-yellow-400 to-orange-400 text-blue-900 px-3 sm:px-4 lg:px-6 py-2 sm:py-3 lg:py-4 rounded-xl sm:rounded-2xl transform rotate-12 shadow-xl">
+                  <span className="text-xl sm:text-2xl lg:text-3xl font-black">%</span>
+                  <div className="text-xs sm:text-sm font-bold">خصم</div>
+                </div>
+              </div>
+              <div className="text-white text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 max-w-3xl leading-relaxed">
+                على الوزن الإضافي للأمتعة، واختيار المقعد المفضل، وحقيبة
+                <br className="hidden sm:block" />
+                يد إضافية (7 كجم)، وجميع باقات السفر المميزة
+              </div>
+              <Button className="bg-gradient-to-r from-yellow-400 to-orange-400 text-blue-900 hover:from-yellow-500 hover:to-orange-500 px-6 sm:px-8 lg:px-12 py-3 sm:py-4 rounded-full text-base sm:text-lg lg:text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                احجز الآن واستفد
+              </Button>
+            </div>
+          </div>
+
+          {/* Enhanced Flight Search Component */}
+          <FlightSearchArabic />
+        </div>
+      </section>
+
+      {/* Enhanced Popular Destinations - Responsive */}
+      <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">وجهات شائعة</h2>
+            <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+              اكتشف أجمل المدن والوجهات السياحية حول العالم بأفضل الأسعار
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+            {[
+              {
+                city: "دبي",
+                country: "الإمارات العربية المتحدة",
+                price: "45",
+                rating: "4.8",
+                image: "/placeholder.svg?height=250&width=350",
+              },
+              {
+                city: "الرياض",
+                country: "المملكة العربية السعودية",
+                price: "40",
+                rating: "4.7",
+                image: "/placeholder.svg?height=250&width=350",
+              },
+              {
+                city: "القاهرة",
+                country: "جمهورية مصر العربية",
+                price: "85",
+                rating: "4.6",
+                image: "/placeholder.svg?height=250&width=350",
+              },
+              {
+                city: "إسطنبول",
+                country: "الجمهورية التركية",
+                price: "120",
+                rating: "4.9",
+                image: "/placeholder.svg?height=250&width=350",
+              },
+            ].map((destination, index) => (
+              <Card
+                key={index}
+                className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer group overflow-hidden"
+              >
+                <div className="relative">
+                  <img
+                    src={destination.image || "/placeholder.svg"}
+                    alt={destination.city}
+                    className="w-full h-40 sm:h-48 lg:h-56 object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                  <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-white/90 backdrop-blur-sm px-2 sm:px-3 py-1 rounded-full">
+                    <div className="flex items-center gap-1">
+                      <Star className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-500 fill-current" />
+                      <span className="text-xs sm:text-sm font-bold">{destination.rating}</span>
+                    </div>
+                  </div>
+                  <div className="absolute bottom-3 sm:bottom-4 right-3 sm:right-4 text-white">
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-1">{destination.city}</h3>
+                    <p className="text-xs sm:text-sm opacity-90">{destination.country}</p>
+                  </div>
+                </div>
+                <CardContent className="p-4 sm:p-6">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600 text-sm sm:text-base lg:text-lg">ابتداءً من</span>
+                    <div className="text-right">
+                      <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-blue-600">
+                        {destination.price}
+                      </span>
+                      <span className="text-gray-500 mr-1 text-sm sm:text-base">د.ك</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Enhanced Stats Section - Responsive */}
+      <section className="py-12 sm:py-16 lg:py-20 bg-blue-900 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 text-center">
+            <div>
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2">5M+</div>
+              <div className="text-sm sm:text-lg lg:text-xl text-blue-200">عميل راضٍ</div>
+            </div>
+            <div>
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2">150+</div>
+              <div className="text-sm sm:text-lg lg:text-xl text-blue-200">وجهة حول العالم</div>
+            </div>
+            <div>
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2">99.8%</div>
+              <div className="text-sm sm:text-lg lg:text-xl text-blue-200">معدل الرضا</div>
+            </div>
+            <div>
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2">24/7</div>
+              <div className="text-sm sm:text-lg lg:text-xl text-blue-200">دعم العملاء</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Enhanced Footer - Responsive */}
+      <footer className="bg-gray-900 text-white py-12 sm:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
+            <div className="sm:col-span-2 lg:col-span-1">
+              <div className="flex items-center gap-3 mb-6 sm:mb-8">
+                <div className="bg-yellow-400 p-2 rounded-full">
+                  <Plane className="h-6 w-6 sm:h-8 sm:w-8 text-blue-900" />
+                </div>
+                <span className="text-2xl sm:text-3xl font-bold">الجزيرة</span>
+              </div>
+              <p className="text-gray-400 leading-relaxed text-base sm:text-lg mb-6">
+                شركة طيران رائدة تقدم خدمات متميزة وتجربة سفر لا تُنسى إلى أكثر من 150 وجهة حول العالم
+              </p>
+              <div className="flex gap-4">
+                <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center cursor-pointer hover:bg-blue-500 transition-colors">
+                  <Globe className="h-5 w-5" />
+                </div>
+                <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center cursor-pointer hover:bg-blue-500 transition-colors">
+                  <Award className="h-5 w-5" />
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">خدماتنا</h4>
+              <ul className="space-y-2 sm:space-y-3 text-gray-400">
+                <li>
+                  <a href="#" className="hover:text-white transition-colors text-base sm:text-lg">
+                    حجز الطيران
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors text-base sm:text-lg">
+                    إدارة الحجز
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors text-base sm:text-lg">
+                    تسجيل الوصول
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors text-base sm:text-lg">
+                    حالة الرحلة
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors text-base sm:text-lg">
+                    برنامج الولاء
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">معلومات السفر</h4>
+              <ul className="space-y-2 sm:space-y-3 text-gray-400">
+                <li>
+                  <a href="#" className="hover:text-white transition-colors text-base sm:text-lg">
+                    شروط السفر
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors text-base sm:text-lg">
+                    الأمتعة
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors text-base sm:text-lg">
+                    التأشيرات
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors text-base sm:text-lg">
+                    التأمين
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors text-base sm:text-lg">
+                    الصحة والسلامة
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">تواصل معنا</h4>
+              <ul className="space-y-3 sm:space-y-4 text-gray-400">
+                <li className="text-base sm:text-lg">الهاتف: 965-1234-567+</li>
+                <li className="text-base sm:text-lg">البريد: info@jazeera.com</li>
+                <li className="text-base sm:text-lg">العنوان: الكويت</li>
+                <li className="text-base sm:text-lg">ساعات العمل: 24/7</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-800 mt-8 sm:mt-12 pt-6 sm:pt-8 text-center text-gray-400">
+            <p className="text-base sm:text-lg">© 2024 شركة الجزيرة للطيران. جميع الحقوق محفوظة.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
 }
