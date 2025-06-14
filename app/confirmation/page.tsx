@@ -2,22 +2,160 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { CheckCircle, Users, Plane, Download, Mail, Calendar, MapPin, Clock, CreditCard } from "lucide-react"
+import { CheckCircle, Users, Plane, Download, Mail, Calendar, MapPin, Clock, CreditCard } from 'lucide-react'
+import { format } from "date-fns"
+import { ar } from "date-fns/locale"
 
-interface ConfirmationPageArabicProps {
+interface BookingData {
   bookingRef: string
+  flightId: string
+  from: string
+  to: string
+  departDate: string
+  returnDate: string
+  passengers: string
+  seats: string
+  classType: string
+  totalPrice: string
 }
 
-export function ConfirmationPageArabic({ bookingRef }: ConfirmationPageArabicProps) {
+interface ConfirmationPageArabicProps {
+  bookingData: BookingData
+}
+
+// Real city names mapping
+const cityNames: Record<string, string> = {
+  KWI: "الكويت",
+  RUH: "الرياض",
+  JED: "جدة",
+  DXB: "دبي",
+  AUH: "أبوظبي",
+  DOH: "الدوحة",
+  BAH: "المنامة",
+  MCT: "مسقط",
+  AMM: "عمان",
+  BEY: "بيروت",
+  CAI: "القاهرة",
+  IST: "إسطنبول",
+  LHR: "لندن",
+  CDG: "باريس",
+  FRA: "فرانكفورت",
+  BOM: "مومباي",
+  DEL: "نيودلهي",
+  BKK: "بانكوك",
+  KUL: "كوالالمبور",
+  SIN: "سنغافورة",
+  JFK: "نيويورك",
+  LAX: "لوس أنجلوس",
+  SYD: "سيدني",
+}
+
+const airportNames: Record<string, string> = {
+  KWI: "مطار الكويت الدولي",
+  RUH: "مطار الملك خالد الدولي",
+  JED: "مطار الملك عبدالعزيز الدولي",
+  DXB: "مطار دبي الدولي",
+  AUH: "مطار أبوظبي الدولي",
+  DOH: "مطار حمد الدولي",
+  BAH: "مطار البحرين الدولي",
+  MCT: "مطار مسقط الدولي",
+  AMM: "مطار الملكة علياء الدولي",
+  BEY: "مطار رفيق الحريري الدولي",
+  CAI: "مطار القاهرة الدولي",
+  IST: "مطار إسطنبول",
+  LHR: "مطار هيثرو",
+  CDG: "مطار شارل ديغول",
+  FRA: "مطار فرانكفورت",
+  BOM: "مطار تشاتراباتي شيفاجي",
+  DEL: "مطار إنديرا غاندي الدولي",
+  BKK: "مطار سوفارنابومي",
+  KUL: "مطار كوالالمبور الدولي",
+  SIN: "مطار تشانغي",
+  JFK: "مطار جون كينيدي الدولي",
+  LAX: "مطار لوس أنجلوس الدولي",
+  SYD: "مطار كينغسفورد سميث",
+}
+
+const classNames: Record<string, string> = {
+  economy: "الدرجة الاقتصادية",
+  premium: "الدرجة المميزة",
+  business: "درجة الأعمال",
+  first: "الدرجة الأولى",
+}
+
+// Generate flight times based on route
+const generateFlightTimes = (from: string, to: string) => {
+  const routes: Record<string, any> = {
+    "KWI-DXB": { duration: "1س 20د", departTime: "08:00", arriveTime: "09:20" },
+    "KWI-RUH": { duration: "1س 15د", departTime: "07:30", arriveTime: "08:45" },
+    "KWI-DOH": { duration: "1س 10د", departTime: "09:15", arriveTime: "10:25" },
+    "KWI-BAH": { duration: "45د", departTime: "06:45", arriveTime: "07:30" },
+    "KWI-MCT": { duration: "1س 30د", departTime: "10:30", arriveTime: "12:00" },
+    "KWI-AMM": { duration: "2س 15د", departTime: "14:20", arriveTime: "16:35" },
+    "KWI-BEY": { duration: "2س 30د", departTime: "15:45", arriveTime: "18:15" },
+    "KWI-CAI": { duration: "3س 45د", departTime: "11:30", arriveTime: "15:15" },
+    "KWI-IST": { duration: "4س 30د", departTime: "13:20", arriveTime: "17:50" },
+    "KWI-LHR": { duration: "7س 15د", departTime: "02:30", arriveTime: "09:45" },
+    "KWI-CDG": { duration: "6س 45د", departTime: "03:15", arriveTime: "10:00" },
+    "KWI-FRA": { duration: "6س 30د", departTime: "01:45", arriveTime: "08:15" },
+    "KWI-BOM": { duration: "3س 30د", departTime: "16:30", arriveTime: "20:00" },
+    "KWI-DEL": { duration: "4س 15د", departTime: "17:45", arriveTime: "22:00" },
+    "KWI-BKK": { duration: "6س 45د", departTime: "23:30", arriveTime: "06:15+1" },
+    "KWI-KUL": { duration: "7س 30د", departTime: "22:15", arriveTime: "05:45+1" },
+    "KWI-SIN": { duration: "7س 45د", departTime: "21:30", arriveTime: "05:15+1" },
+    "KWI-JFK": { duration: "13س 30د", departTime: "14:30", arriveTime: "04:00+1" },
+    "KWI-LAX": { duration: "16س 15د", departTime: "12:45", arriveTime: "04:00+1" },
+  }
+
+  const routeKey = `${from}-${to}`
+  const reverseRouteKey = `${to}-${from}`
+  return routes[routeKey] || routes[reverseRouteKey] || { 
+    duration: "2س 30د", 
+    departTime: "10:00", 
+    arriveTime: "12:30" 
+  }
+}
+
+export function ConfirmationPageArabic({ bookingData }: ConfirmationPageArabicProps) {
   const handleDownloadTicket = () => {
-    // Simulate ticket download
     console.log("Downloading e-ticket...")
   }
 
   const handleEmailConfirmation = () => {
-    // Simulate email sending
     console.log("Sending confirmation email...")
   }
+
+  // Parse passenger data
+  let passengerList = []
+  try {
+    passengerList = JSON.parse(bookingData.passengers)
+  } catch (e) {
+    passengerList = []
+  }
+
+  // Parse seats
+  const seatList = bookingData.seats ? bookingData.seats.split(",") : []
+
+  // Get flight times
+  const flightTimes = generateFlightTimes(bookingData.from, bookingData.to)
+
+  // Format date
+  const formatDate = (dateString: string) => {
+    if (!dateString) return "15 ديسمبر 2024"
+    try {
+      const date = new Date(dateString)
+      return format(date, "dd MMMM yyyy", { locale: ar })
+    } catch (e) {
+      return "15 ديسمبر 2024"
+    }
+  }
+
+  // Calculate pricing breakdown
+  const totalPrice = Number.parseFloat(bookingData.totalPrice) || 58
+  const passengerCount = passengerList.length || 1
+  const basePrice = Math.round((totalPrice - 8 - 5) / passengerCount)
+  const taxes = 8
+  const seatFees = 5
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50" dir="rtl">
@@ -59,7 +197,7 @@ export function ConfirmationPageArabic({ bookingRef }: ConfirmationPageArabicPro
           </p>
           <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-lg inline-block">
             <div className="text-sm sm:text-base text-gray-600 mb-2">رقم الحجز</div>
-            <div className="text-2xl sm:text-3xl font-bold text-blue-600">{bookingRef}</div>
+            <div className="text-2xl sm:text-3xl font-bold text-blue-600">{bookingData.bookingRef}</div>
           </div>
         </div>
 
@@ -76,39 +214,49 @@ export function ConfirmationPageArabic({ bookingRef }: ConfirmationPageArabicPro
               <div className="space-y-4 sm:space-y-6">
                 <div className="flex justify-between items-center py-3 border-b border-gray-100">
                   <span className="text-gray-600 font-medium text-sm sm:text-base">رقم الرحلة</span>
-                  <span className="font-bold text-base sm:text-lg">JZ101</span>
+                  <span className="font-bold text-base sm:text-lg">{bookingData.flightId || "JZ101"}</span>
                 </div>
                 <div className="flex justify-between items-center py-3 border-b border-gray-100">
                   <span className="text-gray-600 font-medium text-sm sm:text-base">المسار</span>
                   <div className="text-right">
-                    <div className="font-bold text-base sm:text-lg">الكويت ← دبي</div>
-                    <div className="text-xs sm:text-sm text-gray-500">KWI → DXB</div>
+                    <div className="font-bold text-base sm:text-lg">
+                      {cityNames[bookingData.from] || "الكويت"} ← {cityNames[bookingData.to] || "دبي"}
+                    </div>
+                    <div className="text-xs sm:text-sm text-gray-500">
+                      {bookingData.from || "KWI"} → {bookingData.to || "DXB"}
+                    </div>
                   </div>
                 </div>
                 <div className="flex justify-between items-center py-3 border-b border-gray-100">
                   <span className="text-gray-600 font-medium text-sm sm:text-base">التاريخ</span>
                   <div className="text-right">
-                    <div className="font-bold text-base sm:text-lg">15 ديسمبر 2024</div>
-                    <div className="text-xs sm:text-sm text-gray-500">الأحد</div>
+                    <div className="font-bold text-base sm:text-lg">{formatDate(bookingData.departDate)}</div>
+                    <div className="text-xs sm:text-sm text-gray-500">
+                      {bookingData.departDate ? format(new Date(bookingData.departDate), "EEEE", { locale: ar }) : "الأحد"}
+                    </div>
                   </div>
                 </div>
                 <div className="flex justify-between items-center py-3 border-b border-gray-100">
                   <span className="text-gray-600 font-medium text-sm sm:text-base">المغادرة</span>
                   <div className="text-right">
-                    <div className="font-bold text-lg sm:text-xl text-blue-600">08:00</div>
-                    <div className="text-xs sm:text-sm text-gray-500">صباحاً - مطار الكويت الدولي</div>
+                    <div className="font-bold text-lg sm:text-xl text-blue-600">{flightTimes.departTime}</div>
+                    <div className="text-xs sm:text-sm text-gray-500">
+                      {airportNames[bookingData.from] || "مطار الكويت الدولي"}
+                    </div>
                   </div>
                 </div>
                 <div className="flex justify-between items-center py-3 border-b border-gray-100">
                   <span className="text-gray-600 font-medium text-sm sm:text-base">الوصول</span>
                   <div className="text-right">
-                    <div className="font-bold text-lg sm:text-xl text-blue-600">09:20</div>
-                    <div className="text-xs sm:text-sm text-gray-500">صباحاً - مطار دبي الدولي</div>
+                    <div className="font-bold text-lg sm:text-xl text-blue-600">{flightTimes.arriveTime}</div>
+                    <div className="text-xs sm:text-sm text-gray-500">
+                      {airportNames[bookingData.to] || "مطار دبي الدولي"}
+                    </div>
                   </div>
                 </div>
                 <div className="flex justify-between items-center py-3">
                   <span className="text-gray-600 font-medium text-sm sm:text-base">مدة الرحلة</span>
-                  <span className="font-bold text-base sm:text-lg">1س 20د</span>
+                  <span className="font-bold text-base sm:text-lg">{flightTimes.duration}</span>
                 </div>
               </div>
             </CardContent>
@@ -124,28 +272,55 @@ export function ConfirmationPageArabic({ bookingRef }: ConfirmationPageArabicPro
             </CardHeader>
             <CardContent className="p-6 sm:p-8">
               <div className="space-y-4 sm:space-y-6">
-                <div className="bg-gray-50 rounded-2xl p-4 sm:p-6">
-                  <div className="flex justify-between items-center mb-4">
-                    <div>
-                      <div className="font-bold text-base sm:text-lg">المسافر 1</div>
-                      <div className="text-sm text-gray-600">البالغ الرئيسي</div>
+                {passengerList.length > 0 ? (
+                  passengerList.map((passenger: any, index: number) => (
+                    <div key={index} className="bg-gray-50 rounded-2xl p-4 sm:p-6">
+                      <div className="flex justify-between items-center mb-4">
+                        <div>
+                          <div className="font-bold text-base sm:text-lg">المسافر {index + 1}</div>
+                          <div className="text-sm text-gray-600">
+                            {index === 0 ? "البالغ الرئيسي" : "مسافر"}
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="font-bold text-blue-600">المقعد {seatList[index] || `${12 + index}A`}</div>
+                          <div className="text-xs text-gray-500">
+                            {seatList[index]?.includes("A") || seatList[index]?.includes("F") ? "نافذة" : "ممر"}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-lg font-semibold">
+                        {passenger.firstName} {passenger.lastName}
+                      </div>
+                      <div className="text-sm text-gray-600 mt-1">{passenger.email}</div>
                     </div>
-                    <div className="text-right">
-                      <div className="font-bold text-blue-600">المقعد 12A</div>
-                      <div className="text-xs text-gray-500">نافذة</div>
+                  ))
+                ) : (
+                  <div className="bg-gray-50 rounded-2xl p-4 sm:p-6">
+                    <div className="flex justify-between items-center mb-4">
+                      <div>
+                        <div className="font-bold text-base sm:text-lg">المسافر 1</div>
+                        <div className="text-sm text-gray-600">البالغ الرئيسي</div>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-bold text-blue-600">المقعد {seatList[0] || "12A"}</div>
+                        <div className="text-xs text-gray-500">نافذة</div>
+                      </div>
                     </div>
+                    <div className="text-lg font-semibold">أحمد محمد الكندري</div>
+                    <div className="text-sm text-gray-600 mt-1">ahmed.alkandari@email.com</div>
                   </div>
-                  <div className="text-lg font-semibold">أحمد محمد الكندري</div>
-                  <div className="text-sm text-gray-600 mt-1">ahmed.alkandari@email.com</div>
-                </div>
+                )}
 
                 <div className="grid grid-cols-2 gap-4 text-center">
                   <div className="bg-blue-50 rounded-xl p-4">
-                    <div className="text-2xl font-bold text-blue-600">الدرجة الاقتصادية</div>
+                    <div className="text-lg sm:text-xl font-bold text-blue-600">
+                      {classNames[bookingData.classType] || "الدرجة الاقتصادية"}
+                    </div>
                     <div className="text-sm text-gray-600">درجة السفر</div>
                   </div>
                   <div className="bg-green-50 rounded-xl p-4">
-                    <div className="text-2xl font-bold text-green-600">1</div>
+                    <div className="text-2xl font-bold text-green-600">{passengerCount}</div>
                     <div className="text-sm text-gray-600">عدد المسافرين</div>
                   </div>
                 </div>
@@ -167,27 +342,29 @@ export function ConfirmationPageArabic({ bookingRef }: ConfirmationPageArabicPro
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">سعر التذكرة الأساسي</span>
-                  <span className="font-medium">45.000 د.ك</span>
+                  <span className="font-medium">{basePrice}.000 × {passengerCount} د.ك</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">رسوم اختيار المقعد</span>
-                  <span className="font-medium">5.000 د.ك</span>
+                  <span className="font-medium">{seatFees}.000 د.ك</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">الضرائب والرسوم</span>
-                  <span className="font-medium">8.000 د.ك</span>
+                  <span className="font-medium">{taxes}.000 د.ك</span>
                 </div>
                 <hr className="border-gray-200" />
                 <div className="flex justify-between items-center text-xl font-bold">
                   <span>المجموع المدفوع</span>
-                  <span className="text-green-600">58.000 د.ك</span>
+                  <span className="text-green-600">{totalPrice}.000 د.ك</span>
                 </div>
               </div>
               <div className="bg-gray-50 rounded-2xl p-4 sm:p-6">
                 <div className="text-sm text-gray-600 mb-2">طريقة الدفع</div>
                 <div className="font-bold text-base sm:text-lg mb-4">بطاقة ائتمان</div>
                 <div className="text-sm text-gray-600">**** **** **** 1234</div>
-                <div className="text-xs text-gray-500 mt-2">تم الدفع بنجاح في 15 ديسمبر 2024</div>
+                <div className="text-xs text-gray-500 mt-2">
+                  تم الدفع بنجاح في {formatDate(bookingData.departDate)}
+                </div>
               </div>
             </div>
           </CardContent>
