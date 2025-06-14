@@ -180,7 +180,7 @@ export function FlightSearchArabic() {
                 onChange={(e) => setTripType(e.target.value)}
                 className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 focus:ring-blue-500"
               />
-              <span className="text-lg sm:text-xl font-medium text-gray-700 group-hover:text-blue-600 transition-colors">
+              <span className="text-lg sm:text-xl font-medium text-gray-200 group-hover:text-blue-600 transition-colors">
                 ذهاب وعودة
               </span>
             </label>
@@ -193,7 +193,7 @@ export function FlightSearchArabic() {
                 onChange={(e) => setTripType(e.target.value)}
                 className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 focus:ring-blue-500"
               />
-              <span className="text-lg sm:text-xl font-medium text-gray-700 group-hover:text-blue-600 transition-colors">
+              <span className="text-lg sm:text-xl font-medium text-gray-200 group-hover:text-blue-600 transition-colors">
                 اتجاه واحد
               </span>
             </label>
@@ -206,7 +206,7 @@ export function FlightSearchArabic() {
                 onChange={(e) => setTripType(e.target.value)}
                 className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 focus:ring-blue-500"
               />
-              <span className="text-lg sm:text-xl font-medium text-gray-700 group-hover:text-blue-600 transition-colors">
+              <span className="text-lg sm:text-xl font-medium text-gray-200 group-hover:text-blue-600 transition-colors">
                 وجهات متعددة
               </span>
             </label>
@@ -216,7 +216,7 @@ export function FlightSearchArabic() {
             {/* Enhanced From/To Cities - Responsive */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 relative">
               <div className="space-y-3">
-                <Label className="text-lg sm:text-xl font-semibold text-gray-800">من</Label>
+                <Label className="text-lg sm:text-xl font-semibold text-gray-300">من</Label>
                 <Select value={from} onValueChange={setFrom}>
                   <SelectTrigger className="h-12 sm:h-16 text-base sm:text-lg bg-gray-50 border-2 hover:border-blue-400 focus:border-blue-500 rounded-xl shadow-sm">
                     <SelectValue placeholder="اختر مدينة المغادرة" />
@@ -271,7 +271,7 @@ export function FlightSearchArabic() {
               </Button>
 
               <div className="space-y-3">
-                <Label className="text-lg sm:text-xl font-semibold text-gray-800">إلى</Label>
+                <Label className="text-lg sm:text-xl font-semibold text-gray-300">إلى</Label>
                 <Select value={to} onValueChange={setTo}>
                   <SelectTrigger className="h-12 sm:h-16 text-base sm:text-lg bg-gray-50 border-2 hover:border-blue-400 focus:border-blue-500 rounded-xl shadow-sm">
                     <SelectValue placeholder="اختر مدينة الوصول" />
@@ -310,7 +310,7 @@ export function FlightSearchArabic() {
             {/* Enhanced Dates - Responsive */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
               <div className="space-y-3">
-                <Label className="text-lg sm:text-xl font-semibold text-gray-800">تاريخ المغادرة</Label>
+                <Label className="text-lg sm:text-xl font-semibold text-gray-300">تاريخ المغادرة</Label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
@@ -336,7 +336,7 @@ export function FlightSearchArabic() {
 
               {tripType === "round-trip" && (
                 <div className="space-y-3">
-                  <Label className="text-lg sm:text-xl font-semibold text-gray-800">تاريخ العودة</Label>
+                  <Label className="text-lg sm:text-xl font-semibold text-gray-300">تاريخ العودة</Label>
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button
@@ -365,7 +365,7 @@ export function FlightSearchArabic() {
             {/* Enhanced Passengers and Class - Responsive */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
               <div className="space-y-3">
-                <Label className="text-lg sm:text-xl font-semibold text-gray-800">المسافرون</Label>
+                <Label className="text-lg sm:text-xl font-semibold text-gray-300">المسافرون</Label>
                 <Select value={passengers} onValueChange={setPassengers}>
                   <SelectTrigger className="h-12 sm:h-16 text-base sm:text-lg bg-gray-50 border-2 hover:border-blue-400 focus:border-blue-500 rounded-xl shadow-sm">
                     <SelectValue />
@@ -391,7 +391,7 @@ export function FlightSearchArabic() {
               </div>
 
               <div className="space-y-3">
-                <Label className="text-lg sm:text-xl font-semibold text-gray-800">درجة السفر</Label>
+                <Label className="text-lg sm:text-xl font-semibold text-gray-300">درجة السفر</Label>
                 <Select value={classType} onValueChange={setClassType}>
                   <SelectTrigger className="h-12 sm:h-16 text-base sm:text-lg bg-gray-50 border-2 hover:border-blue-400 focus:border-blue-500 rounded-xl shadow-sm">
                     <SelectValue />

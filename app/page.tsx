@@ -26,12 +26,12 @@ export default function HomePage() {
       </div>
 
       {/* Professional Header - Responsive */}
-      <header className="relative z-20 bg-white/15 backdrop-blur-md border-b border-white/20 shadow-lg">
+      <header className="relative z-20 bg-white/90 backdrop-blur-md border-b border-white/20 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 sm:h-20">
             {/* Mobile Menu */}
-            <Button variant="ghost" size="icon" className="md:hidden text-white hover:bg-white/10">
-              <Menu className="h-6 w-6" />
+            <Button variant="ghost" size="icon" className="md:hidden text-blue-800 hover:bg-white/10">
+              <Menu className="h-6 w-6 text-blue-700" />
             </Button>
 
             {/* Enhanced Navigation - Hidden on mobile */}
@@ -85,7 +85,7 @@ export default function HomePage() {
               <Button
                 variant="outline"
                 size="sm"
-                className="text-white border-white bg-transparent hover:bg-white/10 font-medium text-xs sm:text-sm px-2 sm:px-3"
+                className="text-blue-700 border-white bg-transparent hover:bg-white/10 font-medium text-xs sm:text-sm px-2 sm:px-3"
               >
                 تسجيل الدخول
               </Button>
@@ -238,10 +238,8 @@ export default function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
             <div className="sm:col-span-2 lg:col-span-1">
               <div className="flex items-center gap-3 mb-6 sm:mb-8">
-                <div className="bg-yellow-400 p-2 rounded-full">
-                  <Plane className="h-6 w-6 sm:h-8 sm:w-8 text-blue-900" />
-                </div>
-                <span className="text-2xl sm:text-3xl font-bold">الجزيرة</span>
+              <img src="vercel.svg" alt="logo"/>              
+
               </div>
               <p className="text-gray-400 leading-relaxed text-base sm:text-lg mb-6">
                 شركة طيران رائدة تقدم خدمات متميزة وتجربة سفر لا تُنسى إلى أكثر من 150 وجهة حول العالم
