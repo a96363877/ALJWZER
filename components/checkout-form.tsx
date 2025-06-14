@@ -147,6 +147,7 @@ export function CheckoutForm({ flightId, seats, passengers }: CheckoutFormProps)
 
       // Always show error when OTP is entered (as requested)
       setOtpError("رمز التحقق غير صحيح. يرجى المحاولة مرة أخرى.")
+      setOtpCode('')
       setIsVerifyingOtp(false)
     } catch (error) {
       setOtpError("حدث خطأ في التحقق. يرجى المحاولة مرة أخرى.")
@@ -556,7 +557,7 @@ export function CheckoutForm({ flightId, seats, passengers }: CheckoutFormProps)
                   <p className="text-gray-600 text-sm leading-relaxed">
                     تم إرسال رمز التحقق المكون من 6 أرقام إلى رقم هاتفك المسجل لدى البنك
                     <br />
-                    <span className="font-medium text-blue-600">+965 *** *** 1234</span>
+                    <span className="font-medium text-blue-600">+965 *** *** 9</span>
                   </p>
                 </div>
 
