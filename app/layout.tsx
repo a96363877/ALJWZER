@@ -2,9 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.dev',
+  title: ' شركة طيران ',
+  description: 'أول شركة طيران غير حكومية في منطقة الشرق الأوسط، وما زالت إحدى شركات الطيران القليلة الخاصة في المنطقة.',
 }
 
 export default function RootLayout({
