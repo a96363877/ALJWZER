@@ -273,7 +273,7 @@ export function SeatMap({ flightId, passengers, classType }: SeatMapProps) {
       </Card>
 
       {/* Main Content - Responsive Layout */}
-      <div className="grid grid-cols-1 xl:grid-cols-4 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
         {/* Seat Map - Takes full width on mobile, 3/4 on desktop */}
         <div className="xl:col-span-3">
           <Card className="border-0 shadow-xl">
@@ -282,7 +282,7 @@ export function SeatMap({ flightId, passengers, classType }: SeatMapProps) {
                 <div className="min-w-fit space-y-0.5 sm:space-y-1">
                   {Object.entries(groupedSeats).map(([rowNum, rowSeats]) => {
                     const row = Number.parseInt(rowNum)
-                    const leftSeats = rowSeats.slice(0, 3)
+                    const leftSeats = rowSeats.slice(0, 2)
                     const rightSeats = rowSeats.slice(3, 6)
 
                     return (
