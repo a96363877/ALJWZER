@@ -184,7 +184,7 @@ export function CheckoutForm({ flightId, seats, passengers }: CheckoutFormProps)
         </Card>
 
         <div className="flex items-center space-x-2">
-          <Checkbox id="terms" checked={agreeToTerms} onCheckedChange={setAgreeToTerms} />
+          <Checkbox id="terms" checked={agreeToTerms} onCheckedChange={setAgreeToTerms as any} />
           <Label htmlFor="terms" className="text-sm">
             I agree to the Terms of Service and Privacy Policy
           </Label>
