@@ -145,28 +145,28 @@ export default function HomePage() {
                 country: "الإمارات العربية المتحدة",
                 price: "45",
                 rating: "4.8",
-                image: "/placeholder.svg?height=250&width=350",
+                image: "/uae.jpg",
               },
               {
                 city: "الرياض",
                 country: "المملكة العربية السعودية",
                 price: "40",
                 rating: "4.7",
-                image: "/placeholder.svg?height=250&width=350",
+                image: "/ryad.jpg",
               },
               {
                 city: "القاهرة",
                 country: "جمهورية مصر العربية",
                 price: "85",
                 rating: "4.6",
-                image: "/placeholder.svg?height=250&width=350",
+                image: "/cairo.jpg",
               },
               {
                 city: "إسطنبول",
                 country: "الجمهورية التركية",
                 price: "120",
                 rating: "4.9",
-                image: "/placeholder.svg?height=250&width=350",
+                image: "/istanbl.jpg",
               },
             ].map((destination, index) => (
               <Card
